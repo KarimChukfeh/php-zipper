@@ -5,7 +5,7 @@
 */
 
 
-class Pzipper{
+class Exporter{
 
   protected $zip;
   protected $zipName;
