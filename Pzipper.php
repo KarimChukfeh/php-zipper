@@ -5,7 +5,7 @@
 */
 
 
-class ExportToZip{
+class Pzipper{
 
   protected $zip;
   protected $zipName;
@@ -25,15 +25,16 @@ class ExportToZip{
 
   function addTextToZip(){
 
-
   }
 
 
   function addImagesToZip(){
 
-
   }
 
+  function downloadZip(){
+
+  }
 
 }
 
