@@ -1,7 +1,5 @@
 # php-zipper
-- Input: a name (string), a text (string), images (string of URLs separated by spaces).
-- Outputs `name.zip` containing `text.txt` and a bunch of `.jpgs` from the URLs string
-
+Creates a `.zip` and populates it with given content
 
 ## How to use
 Create an instance of BioExport passing the following params in order:
