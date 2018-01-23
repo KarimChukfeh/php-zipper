@@ -28,40 +28,41 @@ class BioToZip{
     // Main routine area //
     ///////////////////////
 
-    // 1) Create a local temporary directory
+    // Create a local temporary directory
     if (!file_exists("temp")) {
       mkdir("temp", 0777, true);
     }
 
-    // 2) Create summary.txt and add it to the temporary directory
+    // Iterator for whatever is in the the temporary directoy
+    $files = new RecursiveIteratorIterator(new RecursiveDirectoryIterator('temp/'),RecursiveIteratorIterator::LEAVES_ONLY);
+
+    // Create summary.txt and add it to the temporary directory
     file_put_contents("temp/summary.txt", $this->$summary, FILE_APPEND | LOCK_EX);
 
-    // 3) Fetch the images one by one and add them to the temporary directoy
+    // Get the images from the URLs one by one and add them to the temporary directoy
     foreach($this->images as $imgUrl){
       if(! copy($imgUrl, "temp/".basename($imgUrl))){
         print "Failed to copy $imgUrl";
       }
     }
 
-    // 4) Make an empty $name.zip folder
+    // Make an empty .zip folder
     $this->zip = new ZipArchive();
-    $createZip = $this->zip->open($this->fileName.".zip", ZipArchive::CREATE);
 
-    // 5) populate $name.zip with all files in the temporary directory
-    $rootPath = realpath('temp/');
+    // Open the .zip
+    $createZip = $this->zip->open($this->fileName.".zip", ZipArchive::CREATE);
     if ($createZip !== TRUE) {
       exit("cannot open <$this->fileName>\n");
     }
-    $files = new RecursiveIteratorIterator(
-        new RecursiveDirectoryIterator($rootPath),
-        RecursiveIteratorIterator::LEAVES_ONLY
-    );
+
+    // add every file in the temporary directoy to the .zip
     foreach ($files as $name => $file){
+
       if (!$file->isDir()){
-        // Get real and relative path for current file
+        // Get real and relative path for file
         $filePath = $file->getRealPath();
-        $relativePath = substr($filePath, strlen($rootPath) + 1);
-        // Add current file to archive
+        $relativePath = substr($filePath, strlen('/temp') + 1);
+        // Add file to the .zip
         $this->zip->addFile($filePath, $relativePath);
       }
     }
@@ -71,18 +72,21 @@ class BioToZip{
 
     // Clear the temporary directoy
     foreach($files as $file) {
-      unlink($file->getRealPath());
+      @chmod($file, 0777);
+      @unlink($file->getRealPath());
     }
-    rmdir('temp');
+
+    // Delete the temporary directoy
+    @rmdir('temp');
   }
 
 }
 
 // Uncomment below for an example
 
-// $fileName = "Green Candidate #1";
-// $summary = "Name: Shrek\nRole: Green Candidate";
-// $images = "https://images.moviepilot.com/images/c_limit,q_auto:good,w_600/m5xa5ajsxsflc2gbdy6k/shrek-credit-dreamworks-pictures.jpg http://shrekshrekshrek.weebly.com/uploads/3/1/0/9/31093949/2456051.jpg";
-// $generateZip = new BioToZip($fileName, $summary, $images);
+$fileName = "Green Candidate #1";
+$summary = "Name: Shrek\nRole: Green Candidate";
+$images = "https://images.moviepilot.com/images/c_limit,q_auto:good,w_600/m5xa5ajsxsflc2gbdy6k/shrek-credit-dreamworks-pictures.jpg http://shrekshrekshrek.weebly.com/uploads/3/1/0/9/31093949/2456051.jpg";
+$generateZip = new BioToZip($fileName, $summary, $images);
 
 ?>
