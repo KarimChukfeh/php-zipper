@@ -84,9 +84,9 @@ class BioToZip{
 
 // Uncomment below for an example
 
-$fileName = "Green Candidate #1";
-$summary = "Name: Shrek\nRole: Green Candidate";
-$images = "https://images.moviepilot.com/images/c_limit,q_auto:good,w_600/m5xa5ajsxsflc2gbdy6k/shrek-credit-dreamworks-pictures.jpg http://shrekshrekshrek.weebly.com/uploads/3/1/0/9/31093949/2456051.jpg";
-$generateZip = new BioToZip($fileName, $summary, $images);
+// $fileName = "Green Candidate #1";
+// $summary = "Name: Shrek\nRole: Green Candidate";
+// $images = "https://images.moviepilot.com/images/c_limit,q_auto:good,w_600/m5xa5ajsxsflc2gbdy6k/shrek-credit-dreamworks-pictures.jpg http://shrekshrekshrek.weebly.com/uploads/3/1/0/9/31093949/2456051.jpg";
+// $generateZip = new BioToZip($fileName, $summary, $images);
 
 ?>
