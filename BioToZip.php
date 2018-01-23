@@ -16,7 +16,7 @@ class BioToZip{
     //////////////////////
 
     // The string to become .txt
-    $this->$summary = $text;
+    $this->$summary = $summary;
 
     // The images are an array of URLs parsed from a string of URLs
     $this->images = explode(" ", $images);
