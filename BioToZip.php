@@ -55,14 +55,16 @@ class BioToZip{
       exit("cannot open <$this->fileName>\n");
     }
 
-    // add every file in the temporary directoy to the .zip
-    foreach ($files as $name => $file){
+    // Add every file in the temporary directoy to the .zip
+    foreach ($files as $file){
 
-      if (!$file->isDir()){
-        // Get real and relative path for file
+      if (!$file->isDir()){ // skip directories (i.e only accept files)
+
+        // get real and relative path for file
         $filePath = $file->getRealPath();
         $relativePath = substr($filePath, strlen('/temp') + 1);
-        // Add file to the .zip
+
+        // add file to the .zip
         $this->zip->addFile($filePath, $relativePath);
       }
     }
@@ -84,9 +86,9 @@ class BioToZip{
 
 // Uncomment below for an example
 
-// $fileName = "Green Candidate #1";
-// $summary = "Name: Shrek\nRole: Green Candidate";
-// $images = "https://images.moviepilot.com/images/c_limit,q_auto:good,w_600/m5xa5ajsxsflc2gbdy6k/shrek-credit-dreamworks-pictures.jpg http://shrekshrekshrek.weebly.com/uploads/3/1/0/9/31093949/2456051.jpg";
-// $generateZip = new BioToZip($fileName, $summary, $images);
+$fileName = "Green Candidate #1";
+$summary = "Name: Shrek\nRole: Green Candidate";
+$images = "https://images.moviepilot.com/images/c_limit,q_auto:good,w_600/m5xa5ajsxsflc2gbdy6k/shrek-credit-dreamworks-pictures.jpg http://shrekshrekshrek.weebly.com/uploads/3/1/0/9/31093949/2456051.jpg";
+$generateZip = new BioToZip($fileName, $summary, $images);
 
 ?>
