@@ -3,7 +3,7 @@
 
 class BioToZip{
 
-  protected $fil3Name;
+  protected $fileName;
   protected $summary;
   protected $images;
 
