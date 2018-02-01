@@ -62,7 +62,7 @@ class BioToZip{
 
         // get real and relative path for file
         $filePath = $file->getRealPath();
-        $relativePath = substr($filePath, strlen('/temp') + 1);
+        $relativePath = substr($filePath, strrpos($filePath, '/') + 1);
 
         // add file to the .zip
         $this->zip->addFile($filePath, $relativePath);
